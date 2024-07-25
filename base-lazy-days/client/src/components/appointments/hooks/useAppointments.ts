@@ -71,9 +71,13 @@ export function useAppointments() {
   useEffect(() => {
     const nextMonthYear = getNewMonthYear(monthYear, 1)
     queryClient.prefetchQuery({
-      queryKey: [queryKeys.appointments, nextMonthYear.year, nextMonthYear.month],
+      queryKey: [
+        queryKeys.appointments,
+        nextMonthYear.year,
+        nextMonthYear.month
+      ],
       queryFn: () => getAppointments(nextMonthYear.year, nextMonthYear.month),
-      // ...commonOptions
+      ...commonOptions
     })
   }, [queryClient, monthYear])
 
@@ -89,10 +93,10 @@ export function useAppointments() {
   const { data: appointments = fallback } = useQuery({
     queryKey: [queryKeys.appointments, monthYear.year, monthYear.month],
     queryFn: () => getAppointments(monthYear.year, monthYear.month),
-    // select: (data: AppointmentDateMap) => selectFn(data, showAll),
-    // refetchOnWindowFocus: true,
-    // refetchInterval: 60000, // every minute
-    // ...commonOptions
+    select: (data: AppointmentDateMap) => selectFn(data, showAll),
+    refetchOnWindowFocus: true,
+    refetchInterval: 60000, // every minute
+    ...commonOptions
   })
 
   /** ****************** END 3: useQuery  ******************************* */
