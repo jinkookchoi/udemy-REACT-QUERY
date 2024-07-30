@@ -36,7 +36,7 @@ export function useUser() {
   function updateUser(newUser: User): void {
     // TODO: update the user in the query cache
     queryClient.setQueryData(
-      generateUserKey(newUser.id, newUser.token),
+      generateUserKey(newUser.id, userToken),
       newUser
     )
   }
